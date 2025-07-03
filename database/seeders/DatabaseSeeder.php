@@ -16,13 +16,12 @@ class DatabaseSeeder extends Seeder
         // Call our custom seeders in proper order
         $this->call([
             RoleSeeder::class,
-            SuperadminSeeder::class,
             DocumentTypeSeeder::class,
             DepartmentSeeder::class,
             DocumentStatusSeeder::class,
             DocumentSeeder::class,
             DocumentHistorySeeder::class,
-            PopulateDocumentDirectionSeeder::class,
+            UserSeeder::class,
         ]);
 
         $this->command->info('Database seeded successfully with QR code enabled document tracker!');

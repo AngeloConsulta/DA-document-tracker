@@ -130,29 +130,7 @@ window.Echo = new Echo({
     forceTLS: true
 });
 
-// Initialize Toastify for notifications
-import Toastify from 'toastify-js';
-import 'toastify-js/src/toastify.css';
 
-// Function to show toast notification
-function showToast(message, type = 'info') {
-    const colors = {
-        info: 'linear-gradient(to right, #00b09b, #96c93d)',
-        success: 'linear-gradient(to right, #00b09b, #96c93d)',
-        warning: 'linear-gradient(to right, #f6d365, #fda085)',
-        error: 'linear-gradient(to right, #ff5f6d, #ffc371)'
-    };
-
-    Toastify({
-        text: message,
-        duration: 5000,
-        gravity: 'top',
-        position: 'right',
-        backgroundColor: colors[type],
-        stopOnFocus: true,
-        onClick: function() {}
-    }).showToast();
-}
 
 // Listen for document forwarding notifications
 if (window.userId) {
@@ -160,8 +138,17 @@ if (window.userId) {
         .listen('.document.forwarded', (e) => {
             const { document, notification } = e;
             
-            // Show toast notification
-            showToast(notification.message, 'info');
+            // Show notification using SweetAlert2
+            Swal.fire({
+                title: 'Document Forwarded!',
+                text: notification.message,
+                icon: 'info',
+                toast: true,
+                position: 'top-right',
+                showConfirmButton: false,
+                timer: 5000,
+                timerProgressBar: true
+            });
 
             // Update notification count in the bell icon
             const countElement = document.querySelector('#notification-count');

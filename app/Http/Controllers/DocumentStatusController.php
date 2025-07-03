@@ -51,29 +51,26 @@ class DocumentStatusController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(DocumentStatus $documentStatus)
     {
-        if (!auth()->user()->hasPermission('document_statuses.view')) {
-            abort(403, 'Unauthorized action.');
+        if (request()->ajax()) {
+            return response()->view('document-statuses.show-modal', compact('documentStatus'));
         }
-
-        $documentStatus = DocumentStatus::findOrFail($id);
-
-        return view('document-statuses.show', compact('documentStatus'));
+        abort(404);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(DocumentStatus $documentStatus)
     {
         if (!auth()->user()->hasPermission('document_statuses.edit')) {
             abort(403, 'Unauthorized action.');
         }
-
-        $documentStatus = DocumentStatus::findOrFail($id);
-
-        return view('document-statuses.edit', compact('documentStatus'));
+        if (request()->ajax()) {
+            return response()->view('document-statuses.edit-modal', compact('documentStatus'));
+        }
+        abort(404);
     }
 
     /**
@@ -97,7 +94,7 @@ class DocumentStatusController extends Controller
         $documentStatus = DocumentStatus::findOrFail($id);
         $documentStatus->update($validated);
 
-        return redirect()->route('document-statuses.show', $documentStatus)
+        return redirect()->route('document-statuses.index')
             ->with('success', 'Document status updated successfully.');
     }
 

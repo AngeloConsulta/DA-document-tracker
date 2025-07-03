@@ -67,11 +67,10 @@ class DocumentTypeController extends Controller
      */
     public function show(DocumentType $documentType)
     {
-        if (!auth()->user()->hasPermission('document_types.view')) {
-            abort(403, 'Unauthorized action.');
+        if (request()->ajax()) {
+            return response()->view('document-types.show-modal', compact('documentType'));
         }
-
-        return view('document-types.show', compact('documentType'));
+        abort(404);
     }
 
     /**
@@ -82,8 +81,10 @@ class DocumentTypeController extends Controller
         if (!auth()->user()->hasPermission('document_types.edit')) {
             abort(403, 'Unauthorized action.');
         }
-
-        return view('document-types.edit', compact('documentType'));
+        if (request()->ajax()) {
+            return response()->view('document-types.edit-modal', compact('documentType'));
+        }
+        abort(404);
     }
 
     /**

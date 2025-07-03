@@ -94,7 +94,7 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified user.
      */
-    public function edit(User $user): View
+    public function edit(User $user)
     {
         // Only superadmin can edit users
         if (!auth()->user()->isSuperadmin()) {
@@ -103,13 +103,18 @@ class UserController extends Controller
 
         $roles = Role::where('is_active', true)->get();
         $departments = Department::where('is_active', true)->get();
-        return view('users.edit', compact('user', 'roles', 'departments'));
+
+        if (request()->ajax()) {
+            return response()->view('users.edit-modal', compact('user', 'roles', 'departments'));
+        }
+
+        abort(404);
     }
 
     /**
      * Update the specified user in storage.
      */
-    public function update(Request $request, User $user): RedirectResponse
+    public function update(Request $request, User $user)
     {
         // Only superadmin can update users
         if (!auth()->user()->isSuperadmin()) {
@@ -137,6 +142,10 @@ class UserController extends Controller
             'department_id' => $request->department_id,
             'is_active' => $request->is_active ?? $user->is_active,
         ]);
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'message' => 'User updated successfully.']);
+        }
 
         return redirect()->route('users.index')
             ->with('success', 'User updated successfully.');

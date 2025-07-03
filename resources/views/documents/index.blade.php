@@ -1,69 +1,71 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 text-black leading-tight">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Documents') }}
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+    <div class="py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg border border-gray-200 dark:border-gray-700">
                 <div class="p-6">
                     <!-- Filter Tabs -->
                     <div class="mb-6 flex gap-2">
                         <a href="{{ route('documents.index', ['filter' => 'all']) }}"
-                           class="px-4 py-2 rounded-md text-sm font-semibold {{ $filter === 'all' ? 'bg-indigo-600 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200' }}">
+                           class="px-4 py-2 rounded-md text-sm font-semibold transition-colors {{ $filter === 'all' ? 'bg-indigo-600 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600' }}">
                             All Documents
                         </a>
                         <a href="{{ route('documents.index', ['filter' => 'incoming']) }}"
-                           class="px-4 py-2 rounded-md text-sm font-semibold {{ $filter === 'incoming' ? 'bg-indigo-600 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200' }}">
+                           class="px-4 py-2 rounded-md text-sm font-semibold transition-colors {{ $filter === 'incoming' ? 'bg-indigo-600 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600' }}">
                             Incoming
                         </a>
                         <a href="{{ route('documents.index', ['filter' => 'outgoing']) }}"
-                           class="px-4 py-2 rounded-md text-sm font-semibold {{ $filter === 'outgoing' ? 'bg-indigo-600 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200' }}">
+                           class="px-4 py-2 rounded-md text-sm font-semibold transition-colors {{ $filter === 'outgoing' ? 'bg-indigo-600 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600' }}">
                             Outgoing
                         </a>
                     </div>
                     <div x-data="{}">
                         <!-- Remove the Create New Document button from the All Documents page -->
                     </div>
-                    <table class="w-full divide-y divide-gray-200 dark:divide-gray-700">
-                        <thead>
-                            <tr>
-                                <th class="px-4 py-4 text-left text-xs font-semibold text-gray-800 dark:text-gray-200 uppercase tracking-wider">Tracking #</th>
-                                <th class="px-4 py-4 text-left text-xs font-semibold text-gray-800 dark:text-gray-200 uppercase tracking-wider">Title</th>
-                                <th class="px-4 py-4 text-left text-xs font-semibold text-gray-800 dark:text-gray-200 uppercase tracking-wider">Status</th>
-                                <th class="px-6 py-3 text-left text-xs font-semibold text-gray-800 dark:text-gray-200 uppercase tracking-wider">Department</th>
-                                <th class="px-6 py-3 text-left text-xs font-semibold text-gray-800 dark:text-gray-200 uppercase tracking-wider">Type</th>
-                                <th class="px-6 py-3 text-left text-xs font-semibold text-gray-800 dark:text-gray-200 uppercase tracking-wider">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($documents as $document)
-                                <tr class="text-gray-900 dark:text-gray-300">
-                                    <td class="px-4 py-2">{{ $document->tracking_number }}</td>
-                                    <td class="px-4 py-2">
-                                        <button type="button"
-                                                class="text-blue-600 dark:text-blue-400 hover:underline focus:outline-none">
-                                            {{ $document->title }}
-                                        </button>
-                                    </td>
-                                    <td class="px-4 py-2">
-                                        <span class="px-2 py-1 text-xs rounded-full text-gray-900 dark:text-white" style="background-color: {{ $document->status->color }}">
-                                            {{ $document->status->name }}
-                                        </span>
-                                    </td>
-                                    <td class="px-4 py-2">{{ $document->department->name }}</td>
-                                    <td class="px-4 py-2">{{ $document->documentType->name }}</td>
-                                    <td class="space-x-2">
-                                        <button type="button" onclick="openViewModal('{{ $document->id }}')" class="inline-block p-2 text-blue-600 hover:text-blue-800" title="View"><i class="fas fa-eye"></i></button>
-                                        <button type="button" onclick="openPrintVoucherModal('{{ $document->id }}')" class="inline-block p-2 text-purple-500 hover:text-purple-600" title="Print Voucher"><i class="fas fa-print"></i></button>
-                                    </td>
+                    <div class="overflow-x-auto">
+                        <table class="w-full divide-y divide-gray-200 dark:divide-gray-700">
+                            <thead>
+                                <tr class="bg-gray-50 dark:bg-gray-700">
+                                    <th class="px-4 py-3 text-left text-xs font-semibold text-gray-800 dark:text-gray-200 uppercase tracking-wider">Tracking #</th>
+                                    <th class="px-4 py-3 text-left text-xs font-semibold text-gray-800 dark:text-gray-200 uppercase tracking-wider">Title</th>
+                                    <th class="px-4 py-3 text-left text-xs font-semibold text-gray-800 dark:text-gray-200 uppercase tracking-wider">Status</th>
+                                    <th class="px-4 py-3 text-left text-xs font-semibold text-gray-800 dark:text-gray-200 uppercase tracking-wider">Department</th>
+                                    <th class="px-4 py-3 text-left text-xs font-semibold text-gray-800 dark:text-gray-200 uppercase tracking-wider">Type</th>
+                                    <th class="px-4 py-3 text-left text-xs font-semibold text-gray-800 dark:text-gray-200 uppercase tracking-wider">Actions</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                    <div class="mt-4">
+                            </thead>
+                            <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                                @foreach($documents as $document)
+                                    <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
+                                        <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-300">{{ $document->tracking_number }}</td>
+                                        <td class="px-4 py-3 text-sm">
+                                            <button type="button"
+                                                    class="text-blue-600 dark:text-blue-400 hover:underline focus:outline-none">
+                                                {{ $document->title }}
+                                            </button>
+                                        </td>
+                                        <td class="px-4 py-3 text-sm">
+                                            <span class="px-2 py-1 text-xs rounded-full text-white" style="background-color: {{ $document->status->color }}">
+                                                {{ $document->status->name }}
+                                            </span>
+                                        </td>
+                                        <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-300">{{ $document->department->name }}</td>
+                                        <td class="px-4 py-3 text-sm text-gray-900 dark:text-gray-300">{{ $document->documentType->name }}</td>
+                                        <td class="px-4 py-3 text-sm space-x-2">
+                                            <button type="button" onclick="openViewModal('{{ $document->id }}')" class="inline-block p-2 text-blue-600 hover:text-blue-800 transition-colors" title="View"><i class="fas fa-eye"></i></button>
+                                            <button type="button" onclick="openPrintVoucherModal('{{ $document->id }}')" class="inline-block p-2 text-purple-500 hover:text-purple-600 transition-colors" title="Print Voucher"><i class="fas fa-print"></i></button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mt-6">
                         {{ $documents->links() }}
                     </div>
                 </div>

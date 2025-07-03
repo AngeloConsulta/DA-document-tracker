@@ -80,3 +80,7 @@
     background: rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(10px);
 }
+
+.profile-card {
+    background-color: #1f2937 !important; /* Tailwind's bg-gray-800 */
+}

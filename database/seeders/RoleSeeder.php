@@ -67,7 +67,7 @@ class RoleSeeder extends Seeder
                 [
                     'name' => $role['name'],
                     'description' => $role['description'],
-                    'permissions' => json_encode($role['permissions']),
+                    'permissions' => $role['permissions'],
                     'is_active' => $role['is_active'],
                 ]
             );

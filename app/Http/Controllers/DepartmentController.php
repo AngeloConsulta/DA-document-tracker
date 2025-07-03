@@ -51,11 +51,10 @@ class DepartmentController extends Controller
      */
     public function show(Department $department)
     {
-        $department->load(['documents' => function($query) {
-            $query->latest()->take(10);
-        }]);
-        
-        return view('departments.show', compact('department'));
+        if (request()->ajax()) {
+            return response()->view('departments.show-modal', compact('department'));
+        }
+        abort(404);
     }
 
     /**
@@ -63,7 +62,10 @@ class DepartmentController extends Controller
      */
     public function edit(Department $department)
     {
-        return view('departments.edit', compact('department'));
+        if (request()->ajax()) {
+            return response()->view('departments.edit-modal', compact('department'));
+        }
+        abort(404);
     }
 
     /**

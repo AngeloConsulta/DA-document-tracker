@@ -118,9 +118,44 @@ class DocumentController extends Controller
                 'remarks' => 'Document created'
             ]);
 
-            return redirect()->route('documents.show', $document)
+            // For AJAX requests (modal submissions), return JSON response with full document data
+            if ($request->ajax() || $request->header('X-Requested-With') === 'XMLHttpRequest') {
+                $document->load(['documentType', 'status', 'department', 'creator', 'assignee']);
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Document created successfully.',
+                    'document' => [
+                        'id' => $document->id,
+                        'tracking_number' => $document->tracking_number,
+                        'title' => $document->title,
+                        'status' => [
+                            'name' => $document->status->name,
+                            'color' => $document->status->color,
+                        ],
+                        'department' => [
+                            'name' => $document->department->name,
+                        ],
+                        'documentType' => [
+                            'name' => $document->documentType->name,
+                        ],
+                        'assignee' => [
+                            'name' => $document->assignee ? $document->assignee->name : null,
+                        ],
+                    ]
+                ]);
+            }
+
+            // For regular form submissions, redirect to documents index
+            return redirect()->route('documents.index')
                 ->with('success', 'Document created successfully.');
         } catch (\Exception $e) {
+            if ($request->ajax() || $request->header('X-Requested-With') === 'XMLHttpRequest') {
+                return response()->json([
+                    'success' => false, 
+                    'message' => 'Failed to create document: ' . $e->getMessage()
+                ], 422);
+            }
+            
             return redirect()->route('documents.index')
                 ->withInput()
                 ->withErrors(['error' => 'Failed to create document: ' . $e->getMessage()]);
@@ -225,7 +260,7 @@ class DocumentController extends Controller
                 return response()->json(['success' => true, 'message' => 'Document updated successfully.']);
             }
 
-            return redirect()->route('documents.show', $document)
+            return redirect()->route('documents.index')
                 ->with('success', 'Document updated successfully.');
         } catch (\Exception $e) {
             if (request()->ajax()) {
