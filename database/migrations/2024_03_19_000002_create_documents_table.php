@@ -24,8 +24,6 @@ return new class extends Migration
             $table->timestamp('sent_at')->nullable();
             $table->foreignId('created_by')->constrained('users');
             $table->foreignId('current_assignee')->nullable()->constrained('users');
-            $table->date('date_received');
-            $table->date('due_date')->nullable();
             $table->string('file_path')->nullable();
             $table->json('metadata')->nullable();
             $table->timestamps();

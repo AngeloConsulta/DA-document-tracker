@@ -25,8 +25,14 @@ class DocumentType extends Model
     ];
 
     // Relationships
-    public function documents(): HasMany
+    public function documents()
     {
-        return $this->hasMany(Document::class);
+        // Get all documents for this type via its sub-types
+        return Document::whereIn('document_sub_type_id', $this->subTypes()->pluck('id'));
+    }
+
+    public function subTypes()
+    {
+        return $this->hasMany(DocumentSubType::class);
     }
 }

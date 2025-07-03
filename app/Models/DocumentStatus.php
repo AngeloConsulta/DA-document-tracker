@@ -11,10 +11,7 @@ class DocumentStatus extends Model
 
     protected $fillable = [
         'name',
-        'code',
-        'description',
-        'color',
-        'is_active'
+        'document_sub_type_id',
     ];
 
     protected $casts = [
@@ -22,9 +19,14 @@ class DocumentStatus extends Model
     ];
 
     // Relationships
+    public function subType()
+    {
+        return $this->belongsTo(DocumentSubType::class, 'document_sub_type_id');
+    }
+
     public function documents()
     {
-        return $this->hasMany(Document::class, 'status_id');
+        return $this->hasMany(Document::class, 'document_status_id');
     }
 
     public function fromHistories()

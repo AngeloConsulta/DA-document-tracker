@@ -10,10 +10,6 @@
             </ul>
         </div>
 
-        <div id="create-document-success" class="mb-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded hidden">
-            <span id="create-document-success-message"></span>
-        </div>
-
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <!-- Left Column -->
             <div class="space-y-4">
@@ -27,7 +23,8 @@
 
                 <div>
                     <label class="block text-gray-600 dark:text-gray-300 text-sm font-medium mb-1">Document Type</label>
-                    <select name="document_type_id" class="w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" required>
+                    <select id="document_type_id" name="document_type_id" class="w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" required>
+                        <option value="">Select Type</option>
                         @foreach($documentTypes as $type)
                             <option value="{{ $type->id }}">{{ $type->name }}</option>
                         @endforeach
@@ -35,8 +32,22 @@
                 </div>
 
                 <div>
+                    <label class="block text-gray-600 dark:text-gray-300 text-sm font-medium mb-1">Document Sub-Type</label>
+                    <select id="document_sub_type_id" name="document_sub_type_id" class="w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" required disabled>
+                        <option value="">Select Sub-Type</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-gray-600 dark:text-gray-300 text-sm font-medium mb-1">Status</label>
+                    <select id="document_status_id" name="status_id" class="w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" required disabled>
+                        <option value="">Select Status</option>
+                    </select>
+                </div>
+
+                <div>
                     <label class="block text-gray-600 dark:text-gray-300 text-sm font-medium mb-1">Department</label>
-                    <select name="department_id" id="department_id" class="w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" @if($userDepartment) disabled @endif required>
+                    <select name="department_id" id="department_id" class="w-full px-3 py-2 border border-gray-400 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" @if($userDepartment) disabled @endif required>
                         @foreach($departments as $dept)
                             <option value="{{ $dept->id }}" {{ (old('department_id', $userDepartment) == $dept->id) ? 'selected' : '' }}>{{ $dept->name }}</option>
                         @endforeach
@@ -45,25 +56,13 @@
                         <input type="hidden" name="department_id" value="{{ $userDepartment }}">
                     @endif
                 </div>
-
-                <div>
-                    <label class="block text-gray-600 dark:text-gray-300 text-sm font-medium mb-1">Status</label>
-                    <select name="status_id" class="w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 @error('status_id') border-red-500 @enderror" required>
-                        @foreach($statuses as $status)
-                            <option value="{{ $status->id }}" {{ old('status_id', $statuses->where('code', 'DRAFT')->first()?->id ?? $statuses->first()?->id) == $status->id ? 'selected' : '' }}>{{ $status->name }}</option>
-                        @endforeach
-                    </select>
-                    @error('status_id')
-                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
             </div>
 
             <!-- Right Column -->
             <div class="space-y-4">
                 <div>
-                    <label class="block text-gray-600 dark:text-gray-300 text-sm font-medium mb-1">Assignee</label>
-                    <select name="current_assignee" class="w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 @error('current_assignee') border-red-500 @enderror">
+                    <label class="block text-gray-600 dark:text-gray-300 text-sm font-medium mb-1">Admin Assigned</label>
+                    <select name="current_assignee" class="w-full px-3 py-2 border border-gray-400 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 @error('current_assignee') border-red-500 @enderror">
                         <option value="">Select Assignee</option>
                         @foreach($users as $user)
                             <option value="{{ $user->id }}" {{ old('current_assignee') == $user->id ? 'selected' : '' }}>{{ $user->name }}</option>
@@ -74,26 +73,11 @@
                     @enderror
                 </div>
 
-                <div>
-                    <label class="block text-gray-600 dark:text-gray-300 text-sm font-medium mb-1">Date Created</label>
-                    <input type="date" name="date_received" class="w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" required>
-                </div>
-
-                <div>
-                    <label class="block text-gray-600 dark:text-gray-300 text-sm font-medium mb-1">Due Date</label>
-                    <input type="date" name="due_date" class="w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
-                </div>
-
-                <div>
-                    <label class="block text-gray-600 dark:text-gray-300 text-sm font-medium mb-1">File</label>
-                    <input type="file" name="file" class="w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                <div class="mt-4">
+                    <label class="block text-gray-600 dark:text-gray-300 text-lg font-medium mb-1">Description</label>
+                    <textarea name="description" rows="11" class="w-full px-3 py-2 border border-slate-400 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200"></textarea>
                 </div>
             </div>
-        </div>
-
-        <div class="mt-4">
-            <label class="block text-gray-600 dark:text-gray-300 text-sm font-medium mb-1">Description</label>
-            <textarea name="description" rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"></textarea>
         </div>
 
         <div class="flex justify-end space-x-3 mt-6">
@@ -112,15 +96,48 @@
             const submitBtn = document.getElementById('create-document-submit');
             const errorsDiv = document.getElementById('create-document-errors');
             const errorsList = document.getElementById('create-document-errors-list');
-            const successDiv = document.getElementById('create-document-success');
-            const successMessage = document.getElementById('create-document-success-message');
+
+            const typeSelect = document.getElementById('document_type_id');
+            const subTypeSelect = document.getElementById('document_sub_type_id');
+            const statusSelect = document.getElementById('document_status_id');
+
+            typeSelect.addEventListener('change', function() {
+                let typeId = this.value;
+                subTypeSelect.innerHTML = '<option value="">Select Sub-Type</option>';
+                subTypeSelect.disabled = true;
+                statusSelect.innerHTML = '<option value="">Select Status</option>';
+                statusSelect.disabled = true;
+                if (!typeId) return;
+                fetch(`/api/document-types/${typeId}/sub-types`)
+                    .then(res => res.json())
+                    .then(data => {
+                        data.forEach(subType => {
+                            subTypeSelect.innerHTML += `<option value="${subType.id}">${subType.name}</option>`;
+                        });
+                        subTypeSelect.disabled = false;
+                    });
+            });
+
+            subTypeSelect.addEventListener('change', function() {
+                let subTypeId = this.value;
+                statusSelect.innerHTML = '<option value="">Select Status</option>';
+                statusSelect.disabled = true;
+                if (!subTypeId) return;
+                fetch(`/api/document-sub-types/${subTypeId}/statuses`)
+                    .then(res => res.json())
+                    .then(data => {
+                        data.forEach(status => {
+                            statusSelect.innerHTML += `<option value="${status.id}">${status.name}</option>`;
+                        });
+                        statusSelect.disabled = false;
+                    });
+            });
 
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
                 
                 // Reset messages
                 errorsDiv.classList.add('hidden');
-                successDiv.classList.add('hidden');
                 errorsList.innerHTML = '';
                 
                 // Disable submit button
@@ -140,10 +157,6 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        // Show success message
-                        successMessage.textContent = data.message;
-                        successDiv.classList.remove('hidden');
-                        
                         // Reset form
                         form.reset();
                         
@@ -231,6 +244,8 @@
                     // Re-enable submit button
                     submitBtn.disabled = false;
                     submitBtn.textContent = 'Create Document';
+                    // Ensure status select is enabled before submit so its value is sent
+                    statusSelect.disabled = false;
                 });
             });
         });

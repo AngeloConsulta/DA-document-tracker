@@ -83,8 +83,6 @@ class DocumentController extends Controller
                 'department_id' => 'required|exists:departments,id',
                 'status_id' => 'required|exists:document_statuses,id',
                 'current_assignee' => 'nullable|exists:users,id',
-                'date_received' => 'required|date',
-                'due_date' => 'nullable|date|after:date_received',
                 'file' => 'nullable|file|max:10240', // 10MB max
             ]);
 
@@ -216,7 +214,6 @@ class DocumentController extends Controller
                 'department_id' => 'required|exists:departments,id',
                 'status_id' => 'required|exists:document_statuses,id',
                 'current_assignee' => 'nullable|exists:users,id',
-                'due_date' => 'nullable|date|after:date_received',
                 'file' => 'nullable|file|max:10240',
             ]);
 

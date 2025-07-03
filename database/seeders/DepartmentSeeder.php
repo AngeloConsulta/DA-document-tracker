@@ -11,45 +11,115 @@ class DepartmentSeeder extends Seeder
     {
         $departments = [
             [
-                'name' => 'Office of the Regional Director',
+                'name' => 'ORED',
                 'code' => 'ORED',
-                'description' => 'Office responsible for overall regional leadership and strategic direction',
-                'head_name' => 'Regional Director',
+                'description' => 'Office of the Regional Director',
+                'head_name' => 'Rodel P. Tornilla, MABE',
                 'is_active' => true,
             ],
             [
-                'name' => 'Office of the Regional Technical Director in Operation',
+                'name' => 'ORTDO',
                 'code' => 'ORTDO',
-                'description' => 'Office responsible for regional technical operations and implementation',
-                'head_name' => 'Regional Technical Director in Operation',
+                'description' => 'Office of the Regional Technical Director for Operations',
+                'head_name' => 'Mary Grace Dp. Rodriguez, Ph.D.',
                 'is_active' => true,
             ],
             [
-                'name' => 'Office of the Regional Technical Director in Research and Regulation',
+                'name' => 'ORTDRR',
                 'code' => 'ORTDRR',
-                'description' => 'Office responsible for regional research initiatives and regulatory compliance',
-                'head_name' => 'Regional Technical Director in Research and Regulation',
+                'description' => 'Office of the Regional Technical Director for Research and Regulations',
+                'head_name' => 'Lorenzo L. Alvina',
                 'is_active' => true,
             ],
             [
-                'name' => 'Admin Finance Division',
-                'code' => 'AFD',
-                'description' => 'Division responsible for administrative and financial management',
-                'head_name' => 'Admin Finance Division Head',
+                'name' => 'PMED',
+                'code' => 'PMED',
+                'description' => 'Planning, Monitoring and Evaluation Division',
+                'head_name' => 'Engr. Teodoro C. Eleda',
                 'is_active' => true,
             ],
             [
-                'name' => 'Human Resources and Management Section',
-                'code' => 'HRMS',
-                'description' => 'Section responsible for human resources management and personnel administration',
-                'head_name' => 'HRMS Section Head',
-                'is_active' => true,
-            ],
-            [
-                'name' => 'Agribusiness and Marketing Assistance Division',
+                'name' => 'AMAD',
                 'code' => 'AMAD',
-                'description' => 'Division responsible for agribusiness development and marketing support',
-                'head_name' => 'AMAD Division Head',
+                'description' => 'Agribusiness & Marketing Assistance Division',
+                'head_name' => 'Engr. Luisito Baltazar',
+                'is_active' => true,
+            ],
+            [
+                'name' => 'AFD',
+                'code' => 'AFD',
+                'description' => 'Administrative and Finance Division',
+                'head_name' => 'Imelda P. Acompañado',
+                'is_active' => true,
+            ],
+            [
+                'name' => 'FOD',
+                'code' => 'FOD',
+                'description' => 'Field Operations Division',
+                'head_name' => 'Earl Vincent P. Vegas',
+                'is_active' => true,
+            ],
+            [
+                'name' => 'Research Division',
+                'code' => 'RSD',
+                'description' => 'Research Division',
+                'head_name' => 'Maria Christina F. Campita, Ph.D.',
+                'is_active' => true,
+            ],
+            [
+                'name' => 'Regulatory Division',
+                'code' => 'RGD',
+                'description' => 'Regulatory Division',
+                'head_name' => 'Dr. Marissa N. Guillermo',
+                'is_active' => true,
+            ],
+            [
+                'name' => 'ILD',
+                'code' => 'ILD',
+                'description' => 'Integrated Laboratories Division',
+                'head_name' => 'Anacleto B. Esplana',
+                'is_active' => true,
+            ],
+            [
+                'name' => 'RAED',
+                'code' => 'RAED',
+                'description' => 'Regional Agricultural Engineering Division',
+                'head_name' => 'Engr. Jerry Eboña',
+                'is_active' => true,
+            ],
+            [
+                'name' => 'HRMS',
+                'code' => 'HR',
+                'description' => 'Human resource Management Section',
+                'head_name' => 'Janet M. Pasamba',
+                'is_active' => true,
+            ],
+            [
+                'name' => 'Accounting',
+                'code' => 'ACNT',
+                'description' => 'Accounting Section',
+                'head_name' => 'Lorraine Sermonia',
+                'is_active' => true,
+            ],
+            [
+                'name' => 'Budget',
+                'code' => 'BGT',
+                'description' => 'Budget Section',
+                'head_name' => 'Michelle A. Sabido',
+                'is_active' => true,
+            ],
+            [
+                'name' => 'Cash',
+                'code' => 'CSH',
+                'description' => 'Cash Unit',
+                'head_name' => 'Nelia A. Bustarga',
+                'is_active' => true,
+            ],
+            [
+                'name' => 'RAFIS',
+                'code' => 'RAFIS',
+                'description' => 'Regional Agriculture and Fisheries Information Section',
+                'head_name' => 'Lovella P. Guarin',
                 'is_active' => true,
             ],
         ];
@@ -62,6 +132,6 @@ class DepartmentSeeder extends Seeder
         }
 
         $this->command->info('Departments seeded successfully!');
-        $this->command->info('Created departments: ORED, ORTDO, ORTDRR, AFD, HRMS, AMAD');
+        $this->command->info('Created departments: ORED, ORTDO, ORTDRR, PMED, AMAD, AFD, FOD, RSD, RGD, ILD, RAED, HRMS, ACNT, BGT, CSH, RAFIS');
     }
 } 

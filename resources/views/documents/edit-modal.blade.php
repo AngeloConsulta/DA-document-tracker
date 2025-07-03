@@ -105,16 +105,6 @@
             </div>
 
             <div>
-                <label class="block text-gray-600 dark:text-gray-300 text-sm font-medium mb-1">Date Received</label>
-                <input type="date" name="date_received" value="{{ old('date_received', $document->date_received->format('Y-m-d')) }}" class="w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" required>
-            </div>
-
-            <div>
-                <label class="block text-gray-600 dark:text-gray-300 text-sm font-medium mb-1">Due Date</label>
-                <input type="date" name="due_date" value="{{ old('due_date', optional($document->due_date)->format('Y-m-d')) }}" class="w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
-            </div>
-
-            <div>
                 <label class="block text-gray-600 dark:text-gray-300 text-sm font-medium mb-1">File</label>
                 <input type="file" name="file" class="w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
                 @if($document->file_path)

@@ -16,29 +16,20 @@ class Document extends Model
         'tracking_number',
         'title',
         'description',
+        'document_type_id',
         'status_id',
         'department_id',
-        'document_type_id',
-        'direction',
         'source',
         'received_at',
         'sent_at',
         'created_by',
         'current_assignee',
-        'date_received',
-        'due_date',
         'file_path',
-        'qr_code_path',
-        'qr_code',
-        'metadata'
+        'metadata',
     ];
 
     protected $casts = [
-        'date_received' => 'date',
-        'due_date' => 'date',
-        'received_at' => 'datetime',
-        'sent_at' => 'datetime',
-        'metadata' => 'array'
+        'metadata' => 'array',
     ];
 
     // Relationships

@@ -35,17 +35,10 @@ class DocumentStatusController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'code' => 'required|string|max:255|unique:document_statuses',
-            'description' => 'nullable|string',
-            'color' => 'nullable|string|max:7',
+            'document_sub_type_id' => 'required|exists:document_sub_types,id',
         ]);
-
-        $validated['is_active'] = $request->has('is_active');
-
         DocumentStatus::create($validated);
-
-        return redirect()->route('document-statuses.index')
-            ->with('success', 'Document status created successfully.');
+        return redirect()->route('document-statuses.index')->with('success', 'Status created!');
     }
 
     /**
@@ -76,26 +69,15 @@ class DocumentStatusController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        if (!auth()->user()->hasPermission('document_statuses.edit')) {
-            abort(403, 'Unauthorized action.');
-        }
-
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'code' => 'required|string|max:255|unique:document_statuses,code,' . $id,
-            'description' => 'nullable|string',
-            'color' => 'nullable|string|max:7',
+            'document_sub_type_id' => 'required|exists:document_sub_types,id',
         ]);
-
-        $validated['is_active'] = $request->has('is_active');
-
-        $documentStatus = DocumentStatus::findOrFail($id);
-        $documentStatus->update($validated);
-
-        return redirect()->route('document-statuses.index')
-            ->with('success', 'Document status updated successfully.');
+        $status = DocumentStatus::findOrFail($id);
+        $status->update($validated);
+        return redirect()->route('document-statuses.index')->with('success', 'Status updated!');
     }
 
     /**

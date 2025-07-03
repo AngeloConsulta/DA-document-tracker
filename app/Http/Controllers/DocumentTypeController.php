@@ -138,4 +138,10 @@ class DocumentTypeController extends Controller
             return back()->with('error', 'Failed to delete document type: ' . $e->getMessage());
         }
     }
+
+    public function subTypes($typeId)
+    {
+        $type = DocumentType::with('subTypes')->findOrFail($typeId);
+        return response()->json($type->subTypes);
+    }
 }

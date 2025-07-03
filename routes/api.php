@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DocumentTypeController;
+use App\Http\Controllers\DocumentSubTypeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
-}); 
+});
+
+Route::get('/document-types/{type}/sub-types', [DocumentTypeController::class, 'subTypes']);
+Route::get('/document-sub-types/{subType}/statuses', [DocumentSubTypeController::class, 'statuses']); 

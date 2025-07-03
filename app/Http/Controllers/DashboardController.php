@@ -22,7 +22,7 @@ class DashboardController extends Controller
             'total_documents' => $documentsQuery->count(),
             'pending_documents' => (clone $documentsQuery)
                 ->whereHas('status', function($query) {
-                    $query->where('code', 'pending');
+                    $query->where('name', 'Pending');
                 })->count(),
             'departments' => Department::where('is_active', true)->count(),
             'my_assigned_documents' => Document::where('current_assignee', auth()->id())->count(),

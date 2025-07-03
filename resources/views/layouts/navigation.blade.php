@@ -1,5 +1,5 @@
 <aside class="flex flex-col w-64 h-screen bg-gray-900 border-r border-gray-800 fixed">
-    <div class="flex items-center h-16 px-6 border-b border-gray-800">
+    <div class="flex items-center h-16 px-6">
         <a href="{{ route('dashboard') }}" class="flex items-center space-x-2">
             <x-application-logo class="block h-9 w-auto fill-current text-white" />
             <span class="text-lg font-bold text-white tracking-wide">DARFO5-DTS</span>
@@ -61,10 +61,10 @@
             </x-nav-link>
         @endif
         @if(auth()->user()->hasPermission('document_types.view'))
-            <x-nav-link :href="route('document-types.index')" :active="request()->routeIs('document_types.*')" class="flex items-center space-x-3 px-3 py-2 rounded-md text-white hover:bg-gray-800 transition">
+            {{-- <x-nav-link :href="route('document-types.index')" :active="request()->routeIs('document_types.*')" class="flex items-center space-x-3 px-3 py-2 rounded-md text-white hover:bg-gray-800 transition">
                 <i class="fa-solid fa-file-lines w-5"></i>
                 <span>{{ __('Document Types') }}</span>
-            </x-nav-link>
+            </x-nav-link> --}}
         @endif
     </nav>
     <div class="px-6 py-4 border-t border-gray-800 mt-auto">
