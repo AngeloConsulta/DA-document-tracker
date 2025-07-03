@@ -1,61 +1,112 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# DARFO-5 Document Tracker
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Overview
+The DARFO-5 Document Tracker is a comprehensive, secure, and scalable document tracking system developed for the Department of Agriculture Regional Field Office 5 (DARFO-5). Built on Laravel, it streamlines the management, routing, and monitoring of official documents across multiple departments, ensuring transparency, accountability, and real-time status updates throughout the document lifecycle.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Key Features
+- **Role-Based Access Control (RBAC):** Hierarchical permissions for Superadmin, Admin, and Department Users, with department-based filtering and granular access to documents and system functions.
+- **Document Lifecycle Management:** Full support for document creation, editing, forwarding, status tracking, and archiving, with detailed history and audit trails.
+- **QR Code Integration:** Automatic QR code generation for each document, enabling fast lookup, tracking, and status updates via a mobile-responsive QR scanner interface.
+- **Real-Time Notifications:** Users receive instant alerts when documents are forwarded, received, or updated, ensuring timely action and accountability.
+- **Multi-Department Support:** Documents can be routed between division/offices with access and actions restricted based on user roles and department assignments.
+- **Advanced Search & Filtering:** Powerful search and filter options by department, status, type, and more.
+- **Export & Reporting:** Role-based export of document histories and statistics for compliance and analytics.
+- **Mobile-Responsive Design:** Optimized for use on both desktop and mobile devices, including the QR scanner.
+- **Audit Trail:** Every action is logged for security and compliance.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## System Architecture
+- **Backend:** Laravel PHP Framework
+- **Frontend:** Blade Templates, Tailwind CSS, JavaScript
+- **Database:** MySQL
+- **Authentication:** Laravel Auth with RBAC
+- **QR Code:** Generation and scanning using integrated libraries
+- **Notifications:** Real-time via Laravel broadcasting and in-app alerts
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## User Roles & Permissions
+- **Superadmin:**
+  - Full access to all documents, departments, users, and system settings
+  - Can manage users and departments across the organization
+- **Admin:**
+  - Access limited to their assigned department
+  - Can manage users and documents within their department
+- **Department User:**
+  - Can create, view, and edit documents within their department
+  - Can forward documents to other departments
+  - No user management permissions
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Core Flows
+### 1. Authentication & Role-Based Navigation
+- Users log in and are directed to dashboards and features based on their role.
+- Superadmins see all data; Admins and Department Users see only their department's data.
 
-## Laravel Sponsors
+### 2. Document Creation & Routing
+- Department Users create documents, which are auto-assigned to their department.
+- Documents can be forwarded to other departments or users, with status and history updated at each step.
+- QR codes are generated for each document for easy tracking.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 3. QR Code Scanning
+- Users can scan document QR codes using the built-in scanner (mobile/desktop supported).
+- The scanner finds documents by QR code value or image path, and allows status updates if permitted.
 
-### Premium Partners
+### 4. Notifications & Alerts
+- Real-time notifications are sent when documents are forwarded, received, or updated.
+- Alerts include document details, source/target departments, and direct links.
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### 5. Document Status Tracking
+- Documents move through statuses: Draft → Ready → Forwarded → Received → Processing → Under Review → Approved → Completed → Archived.
+- All status changes are logged and visible in the document history.
 
-## Contributing
+### 6. Security & Compliance
+- All access is protected by authentication, authorization, and department-based filtering.
+- Policies, middleware, and UI controls ensure users only see and act on permitted data.
+- Audit logs and error handling provide traceability and reliability.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+---
 
-## Code of Conduct
+## Technical Highlights
+- **Middleware:** Enforces document access rules on all relevant routes.
+- **Policies & Services:** Centralized logic for permissions and department filtering.
+- **Comprehensive Testing:** Feature tests for access control, QR scanning, and document flows.
+- **Extensible:** Easily add new roles, departments, or document types as needed.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+## Getting Started
+1. **Clone the repository** and install dependencies:
+   ```bash
+   git clone <repo-url>
+   cd document-tracker
+   composer install
+   npm install && npm run dev
+   cp .env.example .env
+   php artisan key:generate
+   ```
+2. **Configure your database** in `.env` and run migrations:
+   ```bash
+   php artisan migrate --seed
+   ```
+3. **Start the development server:**
+   ```bash
+   php artisan serve
+   ```
+4. **Access the app** at `http://localhost:8000` and log in with seeded users.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+---
+
+## Documentation
+- [System Flowcharts](docs/document_tracking_system_flowchart.md)
+- [Role-Based Access Control](docs/ROLE_BASED_ACCESS_CONTROL.md)
+- [QR Scanner Features](docs/README_QR_SCANNER.md)
+
+---
 
 ## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is open-sourced under the [MIT license](https://opensource.org/licenses/MIT).
